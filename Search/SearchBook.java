@@ -31,7 +31,7 @@ public class SearchBook {
                         System.out.println("Book ID: " + data[2].trim());
                         System.out.println("Book Name: " + data[0].trim());
                         System.out.println("Genre: " + genre);
-                        System.out.println("Available: " + true); // default for now borrow PLEASE add borrow fuction
+                        System.out.println("Available: " + (book.isBorrow() ? "Not Available" : "Available"));
                         System.out.println("---------------------------------------\n");
                         break;
                     }

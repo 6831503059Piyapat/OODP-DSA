@@ -24,6 +24,7 @@ public class Cors {
                 add.addUi();
                 
             break;
+
             case 3:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -31,7 +32,6 @@ public class Cors {
                 SearchBook search = new SearchBook();
                 search.searchUi();
                 break;
-
         }
     }
 }
