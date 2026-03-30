@@ -106,12 +106,13 @@ public class AddBook {
             }
             System.out.print("Confirm book? (Y/N): ");
              char ConfirmCharacter = keyboard.next().charAt(0);
-            switch (ConfirmCharacter) {
-                case 'Y' | 'y':
+             char confirmCharacter = Character.toUpperCase(ConfirmCharacter);
+            switch (confirmCharacter) {
+                case 'Y':
                     try{
                        FileWriter fw = new FileWriter("books.txt", true);
                        BufferedWriter bw = new BufferedWriter(fw);
-                       bw.write(nameBook + "," + valueGenre +"," + ValueId);
+                       bw.write(nameBook + "," + valueGenre +"," + ValueId+",Available");
                        bw.newLine(); 
                        bw.close();
                        System.out.println();
@@ -123,7 +124,7 @@ public class AddBook {
                             System.out.println("Adding Failed.");
                     }
                     break;
-                case 'N' | 'n':
+                case 'N':
                     System.out.println("");
                 break;
             
