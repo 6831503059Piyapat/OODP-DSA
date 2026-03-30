@@ -3,13 +3,13 @@ package Book;
 public class bookS {
    private String genre;
    private String title;
-   private boolean isBorrow;
+   private boolean isAvailable;
    private String id;
-    public bookS(String title, String genre, String id, boolean isBorrow) {
+    public bookS(String title, String genre, String id, boolean isAvailable) {
         this.title = title;
         this.genre = genre;
         this.id = id;
-        this.isBorrow = isBorrow;
+        this.isAvailable = isAvailable;
     }
     public String getGenre() {
         return genre;
@@ -20,10 +20,10 @@ public class bookS {
       public String getId() {
          return id;
       }
-
-    public boolean isBorrow() {
-        return isBorrow;
-    }
+      public boolean isAvailable() {
+         return isAvailable;
+      }
+      
 
 
   

@@ -34,7 +34,7 @@ public class SearchBook {
                         System.out.println("Book ID: " + data.getId());
                         System.out.println("Book Name: " + data.getTitle());
                         System.out.println("Genre: " + genre);
-                        System.out.println("Available: " + (data.isBorrow() ?"Available" : "Not Available"));
+                        System.out.println("Available: " + (data.isAvailable() ? "Available" : "Not Available"));
                         System.out.println("---------------------------------------\n");
                         break;
                     }
