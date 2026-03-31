@@ -9,7 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 public class AddBook {
+    // Generate random string for ID
     private static final String CHARACTERS = "0123456789";
+    // Check duplicate book name and ID
     public boolean isDuplicate(String name,String Id) {
         boolean isFound = false;
         name = name.replace(" ", "").toLowerCase();
@@ -36,6 +38,7 @@ public class AddBook {
     }
     return isFound;
 }
+// Generate random string for ID
     public static String generateRandomString(int length,String valueGenre) {
         StringBuilder randomString = new StringBuilder(length);
         Random random = new Random(); 
@@ -49,7 +52,7 @@ public class AddBook {
         
         return randomString.toString();
     }
-
+// Get genre from user input
     public String getGenre(int value) throws WrongChoiceException{
         switch (value) {
             case 1:
@@ -69,6 +72,7 @@ public class AddBook {
         }
     }
     public void addUi() throws WrongChoiceException{
+        // Add Book UI
         System.out.println("===== ADD BOOK ===== \nGenres:\n");
         System.out.println("\u001B[34m 1.\u001B[0m Fiction");
         System.out.println("\u001B[34m 2.\u001B[0m Non-Fiction");
@@ -89,12 +93,12 @@ public class AddBook {
             }
             // Enter genre (1-5): | 
             System.out.print("Enter genre (1-5): ");
-            // 
+            
             int genreBook = keyboard.nextInt();
             System.out.println("");
             String valueGenre = getGenre(genreBook);
             String ValueId = generateRandomString(5 ,valueGenre);
-
+            // Display book information and confirm
             System.out.println("\u001B[34m-------------------- \u001B[0m");
             System.out.println("Book ID: "+ValueId);
             System.out.println("Book Name: "+ nameBook);
@@ -104,6 +108,7 @@ public class AddBook {
             if(isDup){
                 throw new WrongChoiceException("Already Found this book name");
             }
+            // Confirm book for adding
             System.out.print("Confirm book? (Y/N): ");
              char ConfirmCharacter = keyboard.next().charAt(0);
              char confirmCharacter = Character.toUpperCase(ConfirmCharacter);

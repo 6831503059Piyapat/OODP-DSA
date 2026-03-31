@@ -8,6 +8,7 @@ public class Cors {
     public static void main(String[] args) throws WrongChoiceException {
         boolean isExit = false;
         while(!isExit){
+            // Main Menu
         System.out.println("===== Library Management System ====="+"\n");
         System.out.println("\u001B[34m \u001b[1m 1. \u001b[1m \u001B[0m Add Book");
         System.out.println("\u001B[34m \u001b[1m 2. \u001b[1m \u001B[0m Show All Books");
@@ -20,6 +21,7 @@ public class Cors {
         int valueChoice = keyboard.nextInt();
         System.out.println("");
         switch(valueChoice){
+            // ADD BOOK
             case 1:
                AddBook add = new AddBook();
                 System.out.print("\033[H\033[2J");
@@ -27,7 +29,11 @@ public class Cors {
                 add.addUi();
                 
             break;
-
+            // SHOW ALL BOOKS
+            case 2:
+               
+                break;
+            // SEARCH BOOK
             case 3:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -35,12 +41,18 @@ public class Cors {
                 SearchBook search = new SearchBook();
                 search.searchUi();
                 break;
-                case 4:
+                // BORROW BOOK
+            case 4:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 BorrowBook borrow = new BorrowBook();
                 borrow.BorrowUI();
                 break;
+                // RETURN BOOK
+            case 5:
+                
+            break;
+                // Exit
             case 0:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
