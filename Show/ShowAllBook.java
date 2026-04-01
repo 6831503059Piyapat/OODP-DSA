@@ -49,7 +49,7 @@ public class ShowAllBook {
                             System.out.println("Book ID: " + data.getId());
                             System.out.println("Book Name: " + data.getTitle());
                             System.out.println("Genre: " + data.getGenre());
-                            System.out.println("Available: " + (data.isAvailable() ? "True" : "False"));
+                            System.out.println("Available: " + (data.isAvailable() ? "Available" : "Not Available"));
                             System.out.println(); // เว้นบรรทัดเหมือนในรูป
                         }
                     }

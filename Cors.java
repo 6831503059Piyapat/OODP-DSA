@@ -3,6 +3,8 @@ import java.util.*;
 import Except.WrongChoiceException;
 import Add.AddBook;
 import Search.SearchBook;
+import Show.ShowAllBook;
+import Return.ReturnBook;
 import Borrow.BorrowBook;
 public class Cors {
     public static void main(String[] args) throws WrongChoiceException {
@@ -31,7 +33,10 @@ public class Cors {
             break;
             // SHOW ALL BOOKS
             case 2:
-               
+               ShowAllBook show = new ShowAllBook();
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                show.showAllUI();
                 break;
             // SEARCH BOOK
             case 3:
@@ -50,7 +55,10 @@ public class Cors {
                 break;
                 // RETURN BOOK
             case 5:
-                
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                ReturnBook returnBook = new ReturnBook();
+                returnBook.ReturnUI();
             break;
                 // Exit
             case 0:
