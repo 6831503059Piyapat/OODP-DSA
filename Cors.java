@@ -6,7 +6,39 @@ import Search.SearchBook;
 import Show.ShowAllBook;
 import Return.ReturnBook;
 import Borrow.BorrowBook;
-public class Cors {
+import required.recompo;
+public class Cors implements recompo{
+    @Override
+    public void showAllUi() {
+        ShowAllBook show = new ShowAllBook();
+        show.showAllUI();
+    }
+
+    @Override
+    public void searchUi() {
+        SearchBook search = new SearchBook();
+        search.searchUi();
+    }
+    
+    @Override
+    public void ReturnMethod() {
+        ReturnBook returnBook = new ReturnBook();
+        returnBook.ReturnUI();
+    }
+    
+    @Override
+    public void BorrowUi() {
+        BorrowBook borrow = new BorrowBook();
+        borrow.BorrowUI();
+    }
+    
+    @Override
+    public void addUi() throws WrongChoiceException{
+        AddBook add = new AddBook();
+        add.addUi();
+    }
+    
+    
     public static void main(String[] args) throws WrongChoiceException {
         boolean isExit = false;
         while(!isExit){
@@ -22,43 +54,39 @@ public class Cors {
         System.out.print("Enter Choice : ");
         int valueChoice = keyboard.nextInt();
         System.out.println("");
+        Cors cors = new Cors();
         switch(valueChoice){
             // ADD BOOK
             case 1:
-               AddBook add = new AddBook();
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                add.addUi();
+                cors.addUi();
                 
             break;
             // SHOW ALL BOOKS
             case 2:
-               ShowAllBook show = new ShowAllBook();
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                show.showAllUI();
+                cors.showAllUi();
                 break;
             // SEARCH BOOK
             case 3:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 
-                SearchBook search = new SearchBook();
-                search.searchUi();
+                cors.searchUi();
                 break;
                 // BORROW BOOK
             case 4:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                BorrowBook borrow = new BorrowBook();
-                borrow.BorrowUI();
+                cors.BorrowUi();
                 break;
                 // RETURN BOOK
             case 5:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                ReturnBook returnBook = new ReturnBook();
-                returnBook.ReturnUI();
+                cors.ReturnMethod();
             break;
                 // Exit
             case 0:

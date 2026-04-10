@@ -3,3 +3,7 @@ OODP,Educational,Ed46782,Not Available
 AjAoy,Historical,Hi67374,Available
 KKK,Fiction,Fi12820,Not Available
 Dog,Fiction,Fi82403,Available
+GGG,Non-Fiction,No11133,Available
+RRR,Fiction,Fi14710,Available
+ooioo,Fiction,Fi86667,Available
+oerewj,Fiction,Fi25395,Available
