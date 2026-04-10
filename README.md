@@ -12,7 +12,10 @@ This project simulates a library system designed for librarians or library staff
 ## 🚀 Getting Started
 1. clone git : https://github.com/6831503059Piyapat/OODP-DSA.git
 2. Install
- ```Java Extension Pack
- ```JDK (Java Development Kit)
-2. Run:
-   ``` Press F5 or Run button
+ ```
+ Java Extension Pack
+ JDK (Java Development Kit)
+ ```
+3. Run:
+    Press F5 or Run button
+    
