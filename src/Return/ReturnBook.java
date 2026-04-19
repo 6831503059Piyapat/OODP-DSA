@@ -12,151 +12,126 @@ import Book.bookS;
 
 public class ReturnBook {
     private boolean isLoop = true;
+    
     public ReturnBook() {
     }
 
-    public void ReturnUI(){
+    public void ReturnUI() {
+        Scanner scanner = new Scanner(System.in);
         
-        String genres ;
-        while (isLoop){
-            System.out.println("===== Return Book =====");
-            System.out.println("List");
-            System.out.println("1.Fiction");
-            System.out.println("2.Non-Fiction");
-            System.out.println("3.Entertainment");
-            System.out.println("4.Educational");
-            System.out.println("5.Historical");
-            System.out.println();
-            System.out.println("Select List (1-5): ");
-            Scanner scanner = new Scanner(System.in);
-            int choice = scanner.nextInt();
-
-            switch (choice){
-                case 1:
-                    genres = "Fiction";
-                    ReturnMedtod(genres);
-                    break;
-                case 2:
-                    genres = "Non-Fiction";
-                    ReturnMedtod(genres);
-                    break;
-                case 3:
-                    genres = "Entertainment";
-                    ReturnMedtod(genres);
-                    break;
-                case 4:
-                    genres = "Educational";
-                    ReturnMedtod(genres);
-                    break;
-                case 5:
-                    genres = "Historical";
-                    ReturnMedtod(genres);
-                    break;
-                default:
-                    System.out.println("Invalid Genre.");
+        while (isLoop) {
+            System.out.println("\n===== Return Book =====");
+            
+            
+            List<bookS> borrowedBooks = getBorrowedBooks();
+            
+            if (borrowedBooks.isEmpty()) {
+                System.out.println("\nNo borrowed books to return.");
+                System.out.println("\nPress Enter to go back to main menu...");
+                scanner.nextLine();
+                isLoop = false;
+                return;
+            }
+            
+            
+            System.out.println("\n--- Your Borrowed Books ---");
+            for (int i = 0; i < borrowedBooks.size(); i++) {
+                bookS book = borrowedBooks.get(i);
+                System.out.println((i + 1) + ". " + book.getTitle() + " (ID: " + book.getId() + ") - " + book.getGenre());
+            }
+            System.out.println("0. Back to Main Menu");
+            
+            System.out.print("\nSelect book to return (0-" + borrowedBooks.size() + "): ");
+            
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
+            
+            if (choice == 0) {
+                isLoop = false;
+                return;
+            }
+            
+            if (choice < 1 || choice > borrowedBooks.size()) {
+                System.out.println("Invalid selection.");
+                continue;
+            }
+            
+            
+            bookS selectedBook = borrowedBooks.get(choice - 1);
+            returnBook(selectedBook.getId());
+            
+            
+            System.out.print("\nReturn another book? (Y/N): ");
+            String answer = scanner.nextLine().trim().toUpperCase();
+            if (!answer.equals("Y")) {
+                isLoop = false;
             }
         }
     }
 
-    public void ReturnMedtod(String genres){
-        Scanner scanner = new Scanner(System.in);
-       
-        List<String> fileContent = new ArrayList<>();
-        boolean validChoice = false;
+    
+    private List<bookS> getBorrowedBooks() {
+        List<bookS> borrowedBooks = new ArrayList<>();
+        
         try (BufferedReader br = new BufferedReader(new FileReader("books.txt"))) {
             String line;
-            System.out.println("\n------- "+ genres +" -------");
             while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    if (parts.length < 4) {
-                        continue; 
-                    }
-                    bookS data = new bookS(parts[0], parts[1], parts[2], parts[3].equalsIgnoreCase("Available") ? true : false);
-                    String name = data.getTitle().trim().toLowerCase(); // convert book name to lowercase
-                    String genre = data.getGenre().trim();
-                    String id = data.getId().trim().toLowerCase(); // convert ID to lowercase
-                    if (genre.equals(genres)) {
-                        System.out.println("\nBook ID: " + data.getId());
-                        System.out.println("Book Name: " + data.getTitle());
-                        System.out.println("Genre: " + genre);
-                        System.out.println("Available: " + (data.isAvailable() ? "Available" : "Not Available"));
-                    }
+                String[] parts = line.split(",");
+                if (parts.length < 4) continue;
+                
+                String status = parts[3].trim();
+                if (status.equalsIgnoreCase("Not Available")) {
+                    bookS book = new bookS(parts[0].trim(), parts[1].trim(), parts[2].trim(), false);
+                    borrowedBooks.add(book);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file.");
+        }
+        
+        return borrowedBooks;
+    }
+
+    
+    private void returnBook(String bookId) {
+        List<String> fileContent = new ArrayList<>();
+        boolean found = false;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader("books.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 4 && parts[2].trim().equalsIgnoreCase(bookId)) {
                     
+                    line = parts[0] + "," + parts[1] + "," + parts[2] + ",Available";
+                    found = true;
                 }
-                System.out.println(".\n.\n.\n");
-                
-                
-                System.out.print("Enter your borrowed book: ");
-                String input = scanner.nextLine().trim().toLowerCase(); // convert input to lowercase
-
-                boolean isFound1 = false;
-
-                try (BufferedReader br1 = new BufferedReader(new FileReader("books.txt"))) {
-                    String line1;
-                    while ((line1 = br1.readLine()) != null) {
-                    String[] parts = line1.split(",");
-                    if (parts.length < 4) {
-                        fileContent.add(line1);
-                        continue;
-                    }
-
-                    String bookName = parts[0].trim().toLowerCase();
-                    String bookId = parts[2].trim().toLowerCase();
-            
-                    // Assume 'input' is the book name/ID the user typed
-                    if (input.equals(bookName) || input.equals(bookId)) {
-                        if (parts[3].trim().equalsIgnoreCase("Not Available")) {
-                        // Change status to notAvailable
-                        line1 = parts[0] + "," + parts[1] + "," + parts[2] + ",Available";
-                        isFound1 = true;
-                        System.out.println("\nBook returned successfully!");
-                    } else {
-                        System.out.println("\nBook is already returned.");
-                    }
-                }
-                fileContent.add(line1);
-             
+                fileContent.add(line);
             }
-
-                } catch (IOException e) {
-                    System.out.println("Error reading file.");
-            }
-             try (BufferedWriter writer = new BufferedWriter(new FileWriter("books.txt"))) {
-            for (int i = 0; i < fileContent.size(); i++) {
-                writer.write(fileContent.get(i));
+        } catch (IOException e) {
+            System.out.println("Error reading file.");
+            return;
+        }
+        
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("books.txt"))) {
+            for (String line : fileContent) {
+                writer.write(line);
                 writer.newLine();
             }
-            
         } catch (IOException e) {
-            e.printStackTrace();
-        }   
-            
-            
-
-        } 
-        catch (IOException e) {
-            System.out.println("Error reading file."); 
+            System.out.println("Error writing file.");
+            return;
         }
-        while (!validChoice) {
-                System.out.print("Go back to main menu? (Y/N): ");
-                String choiceInput = scanner.nextLine().trim().toUpperCase();
-                if (choiceInput.length() > 0) {
-                    char choice = choiceInput.charAt(0);
-                    switch (choice) {
-                        case 'Y':
-                            isLoop = false;
-                            validChoice = true;
-                            break;
-                        case 'N':
-                            validChoice = true;
-                            break;
-                        default:
-                            System.out.println("Invalid input. Please enter Y or N.");
-                            break;
-                    }
-                } else {
-                    System.out.println("Invalid input. Please enter Y or N.");
-                }
-            }
+        
+        if (found) {
+            System.out.println("\n✓ Book returned successfully!");
         }
     }
+}
+
