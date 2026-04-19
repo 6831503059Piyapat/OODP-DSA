@@ -20,14 +20,14 @@ public class ReturnBook {
         String genres ;
         while (isLoop){
             System.out.println("===== Return Book =====");
-            System.out.println("Genres");
+            System.out.println("List");
             System.out.println("1.Fiction");
             System.out.println("2.Non-Fiction");
             System.out.println("3.Entertainment");
             System.out.println("4.Educational");
             System.out.println("5.Historical");
             System.out.println();
-            System.out.println("Select Genre (1-5): ");
+            System.out.println("Select List (1-5): ");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
 
