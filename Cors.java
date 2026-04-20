@@ -53,7 +53,14 @@ public class Cors implements recompo{
             System.out.println("\u001B[34m \u001b[1m 5. \u001b[1m \u001B[0m Return Book");
             System.out.println("\u001B[34m \u001b[1m 0. \u001b[1m \u001B[0m Exit \n");
             System.out.print("Enter Choice : ");
-            int valueChoice = keyboard.nextInt();
+            int valueChoice;
+            try{
+                valueChoice = keyboard.nextInt();
+            }catch(Exception e){
+                System.out.println("\u001b[1m Invalid input. Please enter a valid choice. \u001b[0m \n");
+                keyboard.nextLine(); // Consume invalid input
+                continue;
+            }
             keyboard.nextLine(); // Consume newline
             System.out.println("");
             Cors cors = new Cors();
@@ -75,8 +82,7 @@ public class Cors implements recompo{
             case 3:
                 System.out.print("\033[H\033[2J");
                 
-                SearchBook search = new SearchBook();
-                search.searchUi(keyboard);
+                cors.searchUi(keyboard);
                 break;
                 // BORROW BOOK
             case 4:
